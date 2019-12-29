@@ -1,0 +1,1248 @@
+What is React ?
+==================
+React is a Open Source front end JavaScript library for building user Interfaces for single page applications.
+
+Adv
+
+Mainatainble
+manageble
+reuseable
+
+Benfits: 
+
+Why React : ?
+
+In JavaScript UI State Management Becomes difficult to handle bcz we manually target  elements in a dom if we change the element the structure will be changed,using jquery traversing will be easy but 
+Focus only on  Bussiness Logic ,preventing you app not exploding 
+it is written by experts so it is cleaner 
+Huge eco system,active community.
+
+2 ways
+
+i) Add React js lib to website 
+ https://reactjs.org/docs/add-react-to-a-website.html#add-react-in-one-minute
+   <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+
+npx create-react-app react-complete-guide
+
+npm install react-scripts@2.1.8
+npm start
+
+
+Next.js
+Next.js is a popular and lightweight framework for static and server rendered applications built with React. It includes styling and routing solutions out of the box, and assumes that you’re using Node.js as the server environment.
+
+Learn Next.js from its official guide.
+
+Gatsby
+Gatsby is the best way to create static websites with React. It lets you use React components, but outputs pre-rendered HTML and CSS to guarantee the fastest load time.
+
+Learn Gatsby from its official guide and a gallery of starter kits.
+
+More Flexible Toolchains
+The following toolchains offer more flexibility and choice. We recommend them to more experienced users:
+
+Neutrino combines the power of webpack with the simplicity of presets, and includes a preset for React apps and React components.
+
+Parcel is a fast, zero configuration web application bundler that works with React.
+
+Razzle is a server-rendering framework that doesn’t require any configuration, but offers more flexibility than Next.js.
+
+A JavaScript build toolchain typically consists of:
+
+A package manager, such as Yarn or npm. It lets you take advantage of a vast ecosystem of third-party packages, and easily install or update them.
+
+A bundler, such as webpack or Parcel. It lets you write modular code and bundle it together into small packages to optimize load time.
+
+A compiler such as Babel. It lets you write modern JavaScript code that still works in older browsers.
+
+4. Understanding the Folder Structure
+	
+	react-complete-guide/
+  README.md
+  node_modules/
+  package.json
+  public/
+    index.html
+    favicon.ico
+  src/
+    App.css
+    App.js
+    App.test.js
+    index.css
+    index.js
+    logo.svg
+	
+	For the project to build, these files must exist with exact filenames:
+
+public/index.html is the page template;
+src/index.js is the JavaScript entry point.
+You can delete or rename the other files.
+
+You may create subdirectories inside src. For faster rebuilds, only files inside src are processed by Webpack. 
+You need to put any JS and CSS files inside src, otherwise Webpack won't see them.
+
+Only files inside public can be used from public/index.html. Read instructions below for using assets from JavaScript and HTML.
+
+You can, however, create more top-level directories. They will not be included in the production build so you can use them for things like documentation.
+
+
+5. Understanding Component Basics
+
+Component:
+================
+Components allows you split the UI into independent, reusable pieces.
+Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements 
+describing what should appear on the screen.
+
+
+There are two types of Components 
+i)Class Component
+ii)Functional Components
+
+class App extends Component {
+  
+render(){
+    return (
+      < div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+       </div>
+    );
+	}
+	
+}
+	
+ii)Functional Components
+===========================
+const person = ()=>{
+	
+	return <p> Hello I'm a React App ! </p>
+}
+export default person;
+
+
+6. Understanding JSX.mp4
+		
+  return React.createElement('div',{ className : "App" }, React.createElement('h1',null,'Does it Work'))
+7 Restrictions Jsx :
+
+	Css Class is replaced With className bcz our Component starts With Class .
+	JSX Expressions should contain only one Root Element .
+	
+8. Creating a Functional Component
+	
+	
+ const person = () => {
+    return (
+        <div>
+             <p>Hi, I'm a Person </p>
+        </div>
+    )
+}
+export default person;
+
+
+Step2 
+import Person from './Person/Person';
+
+
+Step 3:
+
+<Person>
+
+Advantages 
+.For better maintainably we create Multiple components so that it can be reused.
+
+11. Outputting Dynamic Content
+
+	If we want to dispylay an Dynamic content we shuold use "{ } " ;
+	
+	Ex: 
+	{Math.random(Mathh.floor())}
+	const person = () => {
+    return (
+        <div>
+             <p>Hi, I'm a person {Math.random(Mathh.floor())} age  </p>
+        </div>
+    )
+}
+	
+	12)Working with Props
+		Class App extens Component {
+	render(){
+    return (
+      < div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+        <button onClick={this.switchNameHandler}> Switch Name </button>
+        <Person name={ this.state.persons[0].name } age= {this.state.persons[0].age } />
+        <Person name={ this.state.persons[1].name } age= {this.state.persons[1].age }> My Hobbies:Racing </Person>
+        <Person name={ this.state.persons[2].name } age= {this.state.persons[2].age } />
+
+      </div>
+	  )
+	  }
+	  }
+	  
+ const person = (props) => {
+    return (
+        <div>
+             <p>Hi, I'm {props.name} and I'm  {props.age} years old </p>
+        </div>
+    )
+}
+export default person;
+
+13. Understanding the Children Property : My Hobbies:Racing is not output in order to dispylay then use  <p> {props.children}</p>
+
+
+const person = (props) => {
+    return (
+        <div>
+             <p>Hi, I'm {props.name} and I'm  {props.age} years old </p>
+			             <p>{props.children}</p>
+
+        </div>
+    )
+}
+
+
+14:State 
+
+========
+
+State of a component is an object that holds some information that may change over the lifetime of the component. 
+We should always try to make our state as simple as possible and minimize the number of stateful components. 
+
+
+
+props  and state  are CORE concepts of React. Actually, only changes in props  and/ or state  trigger React to re-render your components and potentially update the DOM in the browser (a detailed look at how React checks whether to really touch the real DOM is provided in section 6).
+
+Props
+=========
+props  allow you to pass data from a parent (wrapping) component to a child (embedded) component.
+
+Example:
+
+AllPosts Component:
+
+const posts = () => {
+    return (
+        <div>
+            <Post title="My first Post" />
+        </div>
+    );
+}
+Here, title  is the custom property (prop ) set up on the custom Post  component. We basically replicate the default HTML attribute behavior we already know (e.g. <input type="text">  informs the browser about how to handle that input).
+
+Post Component:
+
+const post = (props) => {
+    return (
+        <div>
+            <h1>{props.title}</h1>
+        </div>
+    );
+}
+The Post  component receives the props  argument. You can of course name this argument whatever you want - it's your function definition, React doesn't care! But React will pass one argument to your component function => An object, which contains all properties you set up on <Post ... /> .
+
+{props.title}  then dynamically outputs the title  property of the props  object - which is available since we set the title  property inside AllPosts  component (see above).
+
+
+
+State
+
+Whilst props allow you to pass data down the component tree (and hence trigger an UI update), state is used to change the component, well, state from within. Changes to state also trigger an UI update.
+
+Example:
+
+NewPost Component:
+
+class NewPost extends Component { // state can only be accessed in class-based components!
+    state = {
+        counter: 1
+    };  
+
+    render () { // Needs to be implemented in class-based components! Needs to return some JSX!
+        return (
+            <div>{this.state.counter}</div>
+        );
+    }
+}
+Here, the NewPost  component contains state . Only class-based components can define and use state . You can of course pass the state  down to functional components, but these then can't directly edit it.
+
+state  simply is a property of the component class, you have to call it state  though - the name is not optional. You can then access it via this.state  in your class JSX code (which you return in the required render()  method).
+
+Whenever state  changes (taught over the next lectures), the component will re-render and reflect the new state. The difference to props  is, that this happens within one and the same component - you don't receive new data (props ) from outside!
+
+16: Handling Eents 
+
+
+switchNameHandler = () --> {
+  
+}
+
+<button onClick= {this.switchNameHandler } />
+
+
+
+17: Manipulating State :
+
+For class Based Components
+
+this.state.persons[0].name="Phanindra";
+// this is not recommended 
+this.setState({ "persons": [ {"name" : "Maximmillen" , "age": 24 } , {"name" : "manu" , "age": 28} ]});
+ 
+Note: setState is availble in Component class Which takes the updated changes and merges in existing object.
+
+Passing Method References B/w Component 
+================================================
+We cannt exceute Functions defined in one component and other component and we can pass those refernces via props click .
+<Person 
+name={ this.state.persons[0].name } 
+age= {this.state.persons[0].age } 
+click={this.switchNameHandler }
+/>
+
+
+
+const post = (props) => {
+    return (
+        <div>
+            <h1>{props.name}</h1>
+			<h1>{props.age}</h1>
+			<h1 onClick={props.click}></h1>
+        </div>
+    );
+}
+
+
+<button onClick= {this.switchNameHandler.bind("max....")}>   it is recommended 
+<button onClick= {()=> this.switchNameHandler("max!!!...")}>
+
+
+
+24. Working with Inline Styles
+Inline Style 
+
+Const style ={
+background-color:'white';
+width:200px;
+font-color :#ccc;
+border:1px solid #000;
+}
+
+
+
+<button style={style}> </button>
+
+
+
+Props:
+=============
+Props are similar to arguments for pure functions argument. Props of component are passed from parent component which invokes component. Props in a component cannot be modified(Immutable). Consider below example we are sending name prop to HelloWorld Component. all props can be accessible with this.props.
+
+var HelloWorld = React.createClass({
+
+  render: function() {
+
+    return <div>Hello {this.props.name}</div>;
+
+  }
+
+});
+ReactDOM.render(
+
+  <Hello name="World" />,
+
+  document.getElementById('container')
+
+);
+
+ Working with Lists and Conditionals
+ ===================================
+2. Rendering Content Conditionally
+
+import React,{Component} from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component {
+  state ={
+    persons :
+      [
+        { name : "Phani" , age :  25 },
+        { name : "Manu"  ,  age : 22 },
+        { name : "Max"   ,  age :  29 }
+        
+      ],
+      other: "Namefgfgf",
+      showPersons:false
+    
+  }
+
+  switchNameHandler = () => {
+    console.log('button was Clicled..');
+    // Do not Do like this this.state.persons[0].name="Phanindra";
+		  this.setState({
+			persons :
+			  [
+				{ name : "Phanindra" , age :  25 },
+				{ name : "Manu"  ,  age : 22 },
+				{ name : "Max"   ,  age :  16 }
+				
+			  ]
+			
+		  })
+	}
+  myNameChanged = (event) => {
+    this.setState({
+      persons:
+        [
+          { name: "Phanindra", age: 25 },
+          { name: event.target.value, age: 22 },
+          { name: "Max", age: 16 }
+
+        ]
+
+    })
+
+  }
+
+  togglePersonHandler =() => { 
+    const doesitShow = this.state.showPersons;
+    this.setState({
+      showPersons : !doesitShow
+    });
+
+  }
+
+  render(){
+    return (
+      < div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+        <button onClick={this.togglePersonHandler}> Switch Name </button>
+          { 
+            this.state.showPersons ?
+                <div> 
+                  <Person name={ this.state.persons[0].name } age= {this.state.persons[0].age } />
+                  <Person name={ this.state.persons[1].name } age= {this.state.persons[1].age } changed= {this.myNameChanged}> My Hobbies:Racing </Person>
+                  <Person name={ this.state.persons[2].name } age= {this.state.persons[2].age } />
+
+              </div> : null
+
+
+
+          }
+           
+
+       
+      </div>
+    );
+
+   //return React.createElement('div',null,'h1','Hi, I\'m a React Component')
+   //return React.createElement('div',{ className : "App" }, React.createElement('h1',null,'Does it Work'))
+
+  }
+
+  
+}
+
+export default App;
+
+ 
+3. Handling Dynamic Content The JavaScript Way
+====================================================
+import React,{Component} from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component {
+  state ={
+    persons :
+      [
+        { name : "Phani" , age :  25 },
+        { name : "Manu"  ,  age : 22 },
+        { name : "Max"   ,  age :  29 }
+        
+      ],
+      other: "Namefgfgf",
+      showPersons:false
+    
+  }
+
+  switchNameHandler = () => {
+    console.log('button was Clicled..');
+    // Do not Do like this this.state.persons[0].name="Phanindra";
+      this.setState({
+        persons :
+          [
+            { name : "Phanindra" , age :  25 },
+            { name : "Manu"  ,  age : 22 },
+            { name : "Max"   ,  age :  16 }
+            
+          ]
+        
+      })
+
+
+  }
+  myNameChanged = (event) => {
+    this.setState({
+      persons:
+        [
+          { name: "Phanindra", age: 25 },
+          { name: event.target.value, age: 22 },
+          { name: "Max", age: 16 }
+
+        ]
+
+    })
+
+  }
+
+  togglePersonHandler =() => { 
+    const doesitShow = this.state.showPersons;
+    this.setState({
+      showPersons : !doesitShow
+    });
+
+  }
+
+  render(){
+
+    let persons = null;
+    if(this.state.showPersons) {
+      persons = (<div> 
+      <Person name={ this.state.persons[0].name } age= {this.state.persons[0].age } />
+      <Person name={ this.state.persons[1].name } age= {this.state.persons[1].age } changed= {this.myNameChanged}> My Hobbies:Racing </Person>
+      <Person name={ this.state.persons[2].name } age= {this.state.persons[2].age } />
+
+  </div>  );
+
+    }
+
+
+    return (
+      <div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+        <button onClick={this.togglePersonHandler}> Switch Name </button>
+           { persons }
+      </div>
+    );
+
+ 
+  }
+
+  
+}
+
+export default App;
+ 
+ 
+
+5: Lists Into
+6
+==========================
+**Prettier 1.18.2**
+[Playground link](https://prettier.io/playground/#N4Igxg9gdgLgprEAuEAdKYA2BDAzrgAgEEAHEguAD3igBNCBhCAWxOgRgOHQINxmzwCAXm5RevEnABOuaISQ8JvANpLlvYASjZmcAkgKoQABQAW2KAEtjBADQFsAc32GCAJgCsBAL531Glo6egZGIACylgCutva8zq4e7r7+4hqa2rqJxpGUsXGOLqEeAJy+AcoVBAC6qekQMGYyhsYAclkAZk5dHcZ1GrhmEADuJjJyULhIHdiYuHABSj7oSrjDVjBgZu16ABKWtJgyIgQAFACUIgB8XFWNVrgAdPMwAMoC8Kdi6ZLj8gZVZRqNI-CRBLKhYzmSxWOjSbC2BwJYpeFKAwKZEItCLRWIOQqJdzJPzo5TgrFhXL5fHItwARgAbOUQaCjCz0tV0VUfOcVlAlkpmABPHZwBgWKAuWgnU5wABuHEuwhu3wk9yeL3egjgXyqUlk8kU7IkwNZXExcGx0OscIRICRLkMqJJxrJFsM8o4jwE0hcMEectmUTgDstSTRrrB7sp2Dy9oJhkZzPRnP5LJ5fN4yzTvBgECcTiOYwNUH2dCO0hEF2u5oCkEmnFoEDguA2ryGwxO6ueHzgzw7xYmuAA3AFu5re7rjYMRoP-oYAIRNlttjsBHmjnPJtLSBC0GQXMQBI6cfVDk5QKKYTCb5RWDqnce9-uzv6TS6q5Rn-7CM4AHloKw5RVdEn21R5v0mR5mGwEhTkgmtPw0XcYCiaQ0j-OdxFJC1REgx5gjgbMzQSPC30eBIfDZM0AHobkzM10h5aiNGI0ElD-GjAOA3heS3LM+QCFC0PEU4qj-AhuIILA8FwUVhGMUgSGMK50T-Mw6SuXY4GvCACAASQAcmYRwCAAJTgbAwE4JSCAXTiNNUyN1M0oyTIAdQgaQAGtYScBzNLUgAjKIYDzcRoAYTArDAbzRG7PMCyLN8y0OGQfBuV51k2MwCFFAhOJCsLoCc1kcPNSDCGzQFxK4oDSokc5NyUAUt3QaqoCoNhpEbOAZivGyyE3e0QAgEgYCseRkFAbBpGkWdZoQXBkBAbA5QgKxaBGoL4ViuA3hIKy-OQGBpGDOwQDMGBmEwdyzA2FtDrAOBXiWjYgI2IUVrAfARtheYepMeEnBg5AZjmEMQAAK1wSgACFdu8-bXiyAAZWE4DB2Z5gumHKFePyjgARSiBpMembHIcO2QZBWoLsCCoVMGgEaSGkWEYHczbGmQAAOAAGC62YgeZ3PhEgVrZlsZAVEaAEdSfgIGxuWlA8AAWk6uB9y2i7dwVqxdyB5xQYpiGLvmZgrBOs7IdbSVicV8nwZxkABCCrnaB5pB3Au07sCsaLJSYZhTZAKB2BGqJ5gAFQZ1WXaInwgA)
+```sh
+--parser babylon
+```
+
+**Input:**
+```jsx
+
+class App extends Component {
+  state ={
+    persons :
+      [
+        { name : "Phani" , age :  25 },
+        { name : "Manu"  ,  age : 22 },
+        { name : "Max"   ,  age :  29 }
+        
+      ],
+      other: "Namefgfgf",
+      showPersons:false
+    
+  }
+
+  switchNameHandler = () => {
+      this.setState({
+        persons :
+          [
+            { name : "Phanindra" , age :  25 },
+            { name : "Manu"  ,  age : 22 },
+            { name : "Max"   ,  age :  16 }
+            
+          ]
+        
+      })
+
+
+  }
+  myNameChanged = (event) => {
+    this.setState({
+      persons:
+        [
+          { name: "Phanindra", age: 25 },
+          { name: event.target.value, age: 22 },
+          { name: "Max", age: 16 }
+
+        ]
+
+    })
+
+  }
+
+  togglePersonHandler =() => { 
+    const doesitShow = this.state.showPersons;
+    this.setState({
+      showPersons : !doesitShow
+    });
+
+  }
+
+  render(){
+
+    let persons = null;
+    if(this.state.showPersons) {
+      persons = (<div> {
+        this.state.persons.map(person => {
+        return  <Person 
+          name={person.name}
+          age={person.age} 
+          /> 
+
+                 }) 
+      }
+         
+  </div>  )
+
+    }
+
+
+    return (
+      < div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+        <button onClick={this.togglePersonHandler}> Switch Name </button>
+         
+           { persons }
+
+       
+      </div>
+    );
+
+  
+  }
+
+  
+}
+
+export default App;
+
+```
+
+**Output:**
+```jsx
+class App extends Component {
+  state = {
+    persons: [
+      { name: "Phani", age: 25 },
+      { name: "Manu", age: 22 },
+      { name: "Max", age: 29 }
+    ],
+    other: "Namefgfgf",
+    showPersons: false
+  };
+
+  switchNameHandler = () => {
+    this.setState({
+      persons: [
+        { name: "Phanindra", age: 25 },
+        { name: "Manu", age: 22 },
+        { name: "Max", age: 16 }
+      ]
+    });
+  };
+  myNameChanged = event => {
+    this.setState({
+      persons: [
+        { name: "Phanindra", age: 25 },
+        { name: event.target.value, age: 22 },
+        { name: "Max", age: 16 }
+      ]
+    });
+  };
+
+  togglePersonHandler = () => {
+    const doesitShow = this.state.showPersons;
+    this.setState({
+      showPersons: !doesitShow
+    });
+  };
+
+  render() {
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {
+          {this.state.persons.map(person => {
+            return <Person name={person.name} age={person.age} />;
+          })}
+        </div>
+      )};
+    }
+
+    return (
+      <div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+        <button onClick={this.togglePersonHandler}> Switch Name </button>
+
+        {persons}
+      </div>
+    );
+  }
+}
+
+export default App;
+
+Lists And State
+=================
+
+class App extends Component {
+  state = {
+    persons: [
+      { name: "Phani", age: 25 },
+      { name: "Manu", age: 22 },
+      { name: "Max", age: 29 }
+    ],
+    other: "Namefgfgf",
+    showPersons: false
+  };
+
+  switchNameHandler = () => {
+    this.setState({
+      persons: [
+        { name: "Phanindra", age: 25 },
+        { name: "Manu", age: 22 },
+        { name: "Max", age: 16 }
+      ]
+    });
+  };
+  myNameChanged = event => {
+    this.setState({
+      persons: [
+        { name: "Phanindra", age: 25 },
+        { name: event.target.value, age: 22 },
+        { name: "Max", age: 16 }
+      ]
+    });
+  };
+
+  togglePersonHandler = () => {
+    const doesitShow = this.state.showPersons;
+    this.setState({
+      showPersons: !doesitShow
+    });
+  };
+
+  deletePersonHandler = (personIndex) => {
+  const Persons = this.state.persons;
+  Persons.splice(personIndex,1);
+  this.setState({persons :Persons });
+	
+  }
+  render() {
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {
+          {this.state.persons.map((person,index) => {
+            return <Person name={person.name} age={person.age} click={()=>this.deletePersonHandler(index)}/>;
+          })}
+        </div>
+      )};
+    }
+
+    return (
+      <div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <h1>I'm Working</h1>
+        <button onClick={this.togglePersonHandler}> Switch Name </button>
+
+        {persons}
+      </div>
+    );
+  }
+}
+
+export default App;
+
+UPDATING State immutable
+============
+the below snippet mutates the original array and it is bad praticse .
+  const Persons = this.state.persons;
+const Persons = this.state.persons.splice();
+splice() -> copy the original array and returns a new array.
+
+2nd Apporach 
+===========
+const Persons = [...this.state.Persons];
+in case of Objects We can use object.assign 
+
+
+
+  
+  
+  
+Radium
+==========
+
+
+
+import React,{Component} from 'react';
+import './App.css';
+import './Person/Person.css';
+
+import Radium,{StyleRoot} from 'radium';
+import Person from './Person/Person';
+
+class App extends Component {
+  state ={
+    persons :
+      [
+        { id : "1" ,name : "Phani" , age :  25 },
+        { id : "2" , name : "Manu"  ,  age : 22 },
+        { id : "3" , name : "Max"   ,  age :  29 }
+        
+      ],
+      other: "Namefgfgf",
+      showPersons:false
+    
+  }
+
+  myNameChanged = (event) => {
+    this.setState({
+      persons:
+        [
+          { name: "Phanindra", age: 25 },
+          { name: event.target.value, age: 22 },
+          { name: "Max", age: 16 }
+
+        ]
+
+    })
+
+  }
+
+  togglePersonHandler =() => {  
+    const doesitShow = this.state.showPersons;
+    this.setState({
+      showPersons : !doesitShow
+    });
+
+  }
+  deletePersonHandler =(personIndex) =>{
+    const persons = [...this.state.persons];    //spread operator 
+  persons.splice(personIndex ,1);
+    this.setState({persons : persons})
+  }
+
+  render(){
+    const style= {
+      backgroundColor:'green',
+      color:'white',
+      border:"1 px solid blue",
+      padding: '8px',
+      cursor:'pointer',
+      ':hover': {
+        backgroundColor:'lightgreen',
+      color:'black',
+      }
+
+
+    }
+const classes = [] ;
+    if(this.state.persons.length <= 2)
+    {
+      classes.push("red");
+    }
+    if(this.state.persons.length <= 1)
+    {
+      classes.push("bold");
+
+    }
+    let persons = null;
+    if(this.state.showPersons) {
+      persons = (<div> {
+        this.state.persons.map(( person, index) => {
+        return  <Person className="Person"
+          name={ person.name }
+          age={ person.age }
+          key={ person.id }
+          click= { () => this.deletePersonHandler( index )  }
+          /> 
+
+                 }) 
+      }
+         
+  </div>  );
+
+       style.backgroundColor='red';
+        style[':hover'] = {
+          backgroundColor:'salmon',
+          color:"black"
+
+        }
+    }
+
+
+    return (
+      <StyleRoot>
+      < div className="App">
+        <h1>Hello I'm a React App !</h1>
+        <p className = { classes.join(' ' )} >I'm Working</p>
+        <button 
+          style={ style }
+
+        onClick={this.togglePersonHandler}> Switch Name </button>
+         
+           { persons }
+
+       
+      </div>
+      </StyleRoot>
+    );
+
+   //return React.createElement('div',null,'h1','Hi, I\'m a React Component')
+   //return React.createElement('div',{ className : "App" }, React.createElement('h1',null,'Does it Work'))
+
+  }
+
+  
+}
+
+export default Radium(App); 
+
+Person.js
+==============
+import  React from 'react';
+import Radium from 'radium'
+import './Person.css';
+
+
+ const person = (props) => {
+
+    const style={
+        "@media(min-width:500px)" :{
+            width:"450px" 
+            }
+    };
+
+    return (
+        <div className="Person" style = { style } > 
+             <p onClick={props.click }>Hi, I'm {props.name} and I'm  {props.age} years old </p>
+            <p>{props.children}</p>
+            <input type="text"  onChange={props.changed} />
+        </div>
+    )
+}
+export default Radium(person);
+
+ 
+
+
+
+Component Life Cycle :
+
+it is only availble in Class based Component 
+
+predefined methods wii be add in our components reacts will call them in different times 
+
+
+important :
+ComponentDidMount()  & ComponentDidUpdate() : fetch data from server are also for Performance improvements
+
+i) are also 
+ShouldComponentUpdate()for Performance improvements
+
+Deeper Dive Into Components:
+================================
+
+LIFE CYCLE HOOKS FOR UPDATE 
+=========================
+
+static getDerivedStateFromProps() --> Sync State to props and Don't use any ajax calls/server calls in this life cycle Hooks
+shouldComponentUpdate():it may cancel updating process .Decide whether or not react should  continue to re-render or the evaluate the component.(Decision)
+getSnapshotBeforeUpdate() :used for last minute Dom Operations .ex restoring the scrolling position of the user 
+render():prepare and structure JSX Code.
+Render Child Props 
+componentDidUpdate() : done with update ComponentDidUpdate is called Render   call http req/sever call 
+don't set state ...
+componentDidUpdate() is invoked immediately after updating occurs. This method is not called for the initial render
+
+
+
+useEffect
+useEffect is a hook for encapsulating code that has ‘side effects,’ and is like a combination of componentDidMount, componentDidUpdate, and componentWillUnmount. 
+Previously, functional components didn’t have access to the component life cycle, but with useEffect you can tap into it.
+
+Note :
+========
+if you  want componentDidMount then try using with empty [] as second parameter .... useEffect( () => {console.log("use Effect at App.js is called")}, []) 
+with empty array ... it will exceute only once through out .
+
+
+CleanUpLife Cycle Hooks 
+=======================
+For Class Based Components  --->  ComponentWillUnMount():if you want to perform any clean up activies when component removed from DOM.
+Functional Based Components  ---> useEffect( () => {console.log("use Effect at App.js is called")}, return () => { console.log("clean up in useEffect ..");}[])
+
+Performance Optimization 
+=======================
+For Class Based Components  --->  shouldComponentUpdate();
+Optimizing Functional Based Components  ---> React.memo 
+
+
+When You Should Optimize : there may be somecases you may be depedent some data frm parent Component,therefore whenever parent component updates 
+you will also updates so in that you should not really use ShouldComponentUpdate and React.memo :
+
+
+
+PureComponent Instead of ShouldComponentUpdate:
+====================================================
+PureComponent internally implements shouldComponentUpdate with all props .
+
+HOC 
+============
+A higher-order component (HOC) is an advanced technique in React for reusing component logic. 
+HOCs are not part of the React API, per se. They are a pattern that emerges from React’s compositional nature.
+Concretely, a higher-order component is a function that takes a component and returns a new component.
+
+
+Another Form OF HOC 
+=======================
+
+withClass = (WrappedComponent,className) => {
+
+return props => (<div className={className} > <WrappedComponent /> </div>);
+}
+export default withclass;
+
+
+The first parameter is the wrapped component. The second parameter retrieves the data we’re interested in, given a DataSource and the current props.
+
+
+24. Passing Unknown Props
+
+
+withClass = (WrappedComponent,className) => {
+return props => (<div className={className} > <WrappedComponent {...this.props} /> </div>);
+
+export default withclass;
+
+Refs
+=====
+
+Refs provide a way to access DOM nodes or React elements created in the render method.
+
+When to Use Refs
+There are a few good use cases for refs:
+
+Managing focus, text selection, or media playback.
+Triggering imperative animations.
+Integrating with third-party DOM libraries.
+Avoid using refs for anything that can be done declaratively.
+
+For example, instead of exposing open() and close() methods on a Dialog component, pass an isOpen prop to it.
+
+Don’t Overuse Refs
+
+Example :
+
+useRef For Class Based Components
+You may not use the ref attribute on function components because they don’t have instances:
+
+
+Apporach 1 beore React 16.3
+=============
+componentDidMount()
+{
+	this.inputElement.focus();
+	
+}
+
+<input type="text"
+  ref = {(emailId) => {this.inputElement = emailId }} 
+ </input>
+ 
+ Approach 2 React 16.3
+ =========================
+ 
+ 
+ constructor(props)
+ {
+	super(props)
+	this.inputElementRef = React.createRef();
+ }
+ 
+ componentDidMount()
+{
+	this.inputElementRef.current.focus();	
+}
+
+<input type="text"
+  ref = {this.inputElementRef} 
+  name=""
+  age=""
+ </input>
+
+ 
+ =
+ useRef For Functional Components:
+ =====================================
+ 
+ useRef Hooks for Functional Components.
+ 
+ Context:
+ =================
+ Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+
+ Http Requests /Service Calls 
+ ==============================
+ Axios 
+ 
+ npm install --save axios 
+ 
+ 
+
+ 
+ Routing :
+ Routing is abut being able to show more than one pages to users.
+ 
+BrowserRouter  ....
+HashRouter
+MemoryRouter
+
+
+
+<Route path="/"  exact render={()=> <h1> home </h1> }
+<Route path="/" render={()=> <h1> home 2</h1> }
+
+
+
+Link
+
+NavLink 
+
+
+
+Passing Routes Parameters :
+================================
+
+<Route path="/:id" component='FullPost'}
+
+return (
+	<Link to={post.id} key ={post.id } > 
+		
+		<Post  id={post.id} 
+		title={}
+		content ={} 
+		click= { this.selectPostHandler}
+</Post>		
+</Link>
+);
+
+
+
+Extracting Route Paramteres
+===============================
+this.props.match.params.id 
+
+
+19. Using Switch to Load a Single Route
+We neeed to Tell React Router to Load only one out of availble routes by wrapping route Config using Switch Component 
+
+Switch Component : load only one Route or to Ensure only one Route is Loaded..
+
+
+navigating progmatically 
+
+this.props.history.push('/id');
+
+this.props.history.push({pathname: /id});
+
+
+
+
+26. Using the History Prop to Redirect ( push /Replace)
+=================================================
+this.props.history.push('/id'):  pushing  new Route/Page  to stack  you will be able to see full post
+redirect replces current page (you will not able to see Full posts )
+this.props.history.replace('/id'): replacing a new Route  replaces current page (you will not able to see full posts )
+
+
+
+
+
+
+
+Redux:
+
+State:Ingredients added to Burger
+	  is User Authinacted ?
+	  List all Posts
+	  is Given Modal Open ? Back Drp Open ?
+	 State determines what should render on the screen ...
+		
+		
+		
+How Redux Works 
+
+Component : Wants to Manipulate App State 
+|
+|
+|
+> Component Dispacthes an Action
+Action : Predefined Information (Payload)
+|
+|
+|
+|
+>  Reaches to Reducer 
+Reducer : Recivies an action Updates State (no side effects ) sync function ,no http
+can combine multiple reducers into one root Reducer
+|
+|
+|
+|
+Updates Central Store
+
+Central Store : It's Stores Entire Application State and Triggers updates to Subscription 
+|
+|
+|
+Triggers
+
+Updates state to subscription.
+
+Subscription :Passes Updated State through props to Component ...
+
+
+
+
+
