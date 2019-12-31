@@ -1,0 +1,217 @@
+WHAT NODE JS
+==============
+Node Js is a Java script run time library
+Java Script is  a  programming lang which exceutes or runs at browser  
+it allows to run javascript scripting language on server side .
+
+      USES      takes js code and compiles to machine code.
+NODE ---->  V8 ------>
+
+NODE JS adds these features file read ,write etc which javascript (browser) does not support
+allows run javascript on our computer it add useful functionality to V8 to perform some useful things.
+
+USE OF NODE JS 
+====================
+also java script code runs at server side 
+allows uses in request/resp pattern
+user cannot access server side code 
+allows us to perform 
+			   i)Data base operations 
+			   ii)Authenitaction 
+			   iii)Input Validations 
+			   iv)Your Bussines  logic.(Req data,response ,files etc...)
+			   
+			   
+Utility scripts,build tools 
+Run server 
+Create Server and listen to incoming req
+
+Following are the areas where it’s perfect to use Node.js.
+
+I/O bound Applications
+Data Streaming Applications
+Data Intensive Real-time Applications (DIRT)
+JSON APIs based Applications
+Single Page Applications
+At the same time, it’s not suitable for heavy applications involving more of CPU usage.
+
+ 
+When Should We Use Node.Js?
+It’s ideal to use Node.js for developing streaming or event-based real-time applications that require less CPU usage such as.
+
+Chat applications.
+Game servers.
+
+
+ 
+			   
+			   
+Creating a Node Server 
+===========================
+
+const http = require('http');
+const server = http.createServer( (req,res) => {
+	console.log(req);
+});
+
+
+OR
+
+const http = require('http');
+
+http.createServer(function (request, response) {
+   // Send the HTTP header 
+   // HTTP Status: 200 : OK
+   // Content Type: text/plain
+   response.writeHead(200, {'Content-Type': 'text/plain'});
+   
+   // Send the response body as "Hello World"
+   response.end('Hello World\n');
+}).listen(8081);
+
+// Console will print the message
+console.log('Server running at http://127.0.0.1:8081/');
+
+
+
+
+or 
+
+const http = require('http');
+const server = http.createServer();
+server.listen(3000);
+
+Install Express 
+
+npm install express @next --save 
+
+const http = require('http');
+const express = require('express');
+const app = express();
+app.use( (req,res,next ) =>{
+});
+
+const server = http.createServer(app);
+server.listen(3000);
+
+
+
+
+const http  = require('http');
+const express = require('express');
+
+const app = express();
+app.use('/home', req,res,next) => {
+console.log("");
+res.send('<h1> Welcome to Home Page </h1>' );
+
+});
+
+http.createServer(app);
+http.listen(3000);
+
+
+
+========================
+Express Routing 
+===============
+
+const express= require('express');
+const router = express.Router();
+router.get('/add-product', req,res,next) => {
+res.send('<form action="" method="post" > <input type="text"  name="title" id="title"  /> </form>' );
+
+
+
+});
+
+router.post('/add-product', (req,res,next) => {
+
+console.log(req.body);
+
+
+});
+
+module.exports= router;
+
+
+Serving
+
+
+LIFE CYCLE AND EVENT LOOP 
+--------------------------
+i)  node app.js  ===> read app.js file script 
+ii) parse code or register variables,functions  
+iii) event loop keeps running as long as there are event listener registered 
+Event Driven apporach 
+
+Note: we should not deregestired process.exit();
+
+
+Request Object :
+=================
+->is a complex object node js genertaed for us (req)
+-> contains req.url,req.method,req.headers 
+-> content type
+
+Response Object 
+===============
+res.write ("<html> .....</html>")
+
+
+Routing req 
+===========
+if(req.url ===="/"&& req.method="GET")
+{
+
+}
+
+
+
+EXPORT AND IMPORT NODE module 
+==================
+
+const reqHandler = (req,res) => {
+	...
+	....
+	
+});
+
+i)module.exports=reqHandler;
+ii)module.exports= {
+handler : reqHandler,
+someText : 'ggjgjgj'
+};
+iii)
+module.exports.handler =reqHandler;
+module.exports.someText ='ggjgjgj';
+
+iv)
+
+exports.handler =reqHandler;
+exports.someText ='ggjgjgj';
+
+
+
+
+
+EXPRESS JS
+===========
+Express JS is a NODE JS frame work ,a pkg that adds bunch of utility functions and tools.
+writing request hadling server side code is complex 
+
+focus only on bussiness logic not gritty nitty logic 
+
+use frame work for heavy lifting ...
+
+
+
+
+
+
+
+
+
+
+
+
