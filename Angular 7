@@ -569,3 +569,41 @@ let promise = new Promise(function(resolve, reject) {
   setTimeout(() => resolve("…")); // ignored
 });
 
+
+
+
+
+Angular Life Cycle Hooks
+========================
+Constructor: We can use constructor to perform default values to the properties of a component .
+ngOnChanges:when assigning of new values for i/p properties this hook is called  ,if and only iff component has Input propertiy
+ngonInit:next hook ngOnInit is used to perform servie to get data from databases or any other source.
+ngDoCheck: excueted when an event occurs like keyboard press ,click etc ,used to detect change detection happended or not 
+ngAfterContentInit:it is called after initiliztion the content of a component used to set properties of content childern.
+ngContentChecked:exceutes after changeDetection Process is completed.use this to any properties of content childern,those are having specific values are not
+ngViewInit:exceute after initilizing the view template.used used to set properties of view childern.
+ngViewChecked:exceutes after changeDetection Process of view is completed. use this to any properties of view childern,those are having specific values are not
+ngonDestory:removed from the array or removed from webpage or close the browser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
