@@ -584,26 +584,3 @@ ngContentChecked:exceutes after changeDetection Process is completed.use this to
 ngViewInit:exceute after initilizing the view template.used used to set properties of view childern.
 ngViewChecked:exceutes after changeDetection Process of view is completed. use this to any properties of view childern,those are having specific values are not
 ngonDestory:removed from the array or removed from webpage or close the browser
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
