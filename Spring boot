@@ -196,3 +196,38 @@ Option to exclude dependencies to avoid potential jar conflicts when deploying i
 Option to specify active profiles when deploying
 Random port generation for integration tests
 
+
+
+Exceute Spring Boot 
+===============================
+i)Maven 
+    mvn spring-boot:run
+
+ii)Gradle
+gradle bootRun
+
+iii) java -jar target/mywebserviceapp-0.0.1-SNAPSHOT.jar
+
+Different ways of Creating Spring Boot Project
+======================================================
+
+Ø  Create Spring Boot Project with Spring Initializr.
+Ø  Create Spring Boot Project with Spring Starter Eclipse Plugin.
+Ø  Generate Spring Boot Project with a simple Maven Project in Eclipse.
+
+
+
+package com.in28minutes.springboot.tutorial;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+@SpringBootApplication
+public class SpringBootWebApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootWebApplication.class, args);
+    }
+}
+All you need to do is add @SpringBootApplication and use the SpringApplication.run() static method to launch the Spring application context.
+
+When you launch this class as a Java application, you will see that an embedded Tomcat server launches and you are ready to add features to this application.
+
+
