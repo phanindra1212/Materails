@@ -231,3 +231,6 @@ All you need to do is add @SpringBootApplication and use the SpringApplication.r
 When you launch this class as a Java application, you will see that an embedded Tomcat server launches and you are ready to add features to this application.
 
 
+Spring Boot provides two interfaces, CommandLineRunner and ApplicationRunner, to run specific pieces of code when an application is fully started. These interfaces get called just before run() once SpringApplication completes.
+
+
