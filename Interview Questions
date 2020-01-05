@@ -49,7 +49,7 @@ Core-Java----1 st round
 9.Why u are using Spring-jdbc why not hibernate
 10.Which security u are using..
 11.Level of log(Which one u use in your project)
-
+12)can we have an constructor as final ?
 Second-Round(CoreJava+Spring)
 ===========================
 1.What is abstraction
@@ -99,6 +99,12 @@ Exceptions
 2) If a method throws NullPointerException in the superclass, can we override it with a method which throws RuntimeException?
 3) The difference between throw and throws in Java?
 4) What is difference between Checked and Unchecked Exception in Java?
+5) Is it possible to Write Throwable inside catch Block?
+6) Is it possible to Write Error inside catch Block?
+7)Java8 Exception Modifications?
+8)Exception hiercahrcy? what happens when parent class throws exception ?
+
+
 
 Collections
 
