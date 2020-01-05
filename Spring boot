@@ -334,3 +334,96 @@ my:
               a2: 8.6
               a3: 9.6
 
+
+
+Place Holder process in yml (or) properties File
+Internal placeholders are used to re-use existed key value for another key as a part or full.
+Read as ${fullPathKey} (it must be properties style even in yml file)
+
+application.properties 
+my.dt.pid=68
+my.dt.mid=${my.dt.pid}
+
+application.yml :-
+my:
+       dt:
+           pid: 68
+           mid: ${my.dt.pid}
+
+NOTE :-
+1.Symbol ‘#’ indicates a comment line in yml file.
+2.Using 3 dash (---) symbols in yml is divided into multiple files internally (mainly used for profiles**)
+
+Spring Boot Profiles
+=================================================\
+
+Profile Code	Properties File	              Class level Annotation
+Default	  application.properties	       @Profile(“default”)
+Prod	application-prod.properties		@Profile(“prod”)
+Uat	application-uat.properties		@Profile(“uat”)
+Qa	application-qa.properties		@Profile(“qa”)
+Cloud	application-cloud.properties		@Profile(“cloud”)
+
+
+
+NOTE :-
+1.Use key spring.profiles.active=profile
+We can provide using 3 ways. Those are
+a. Command Line Arguments (Option Arguments)
+Ex :-      --spring.profiles.active=prod
+b.In application.proeprties
+     Ex :-    spring.profiles.active=prod
+c.VM (JVM/System) Argument :-
+Ex :-     -Dspring.profiles.active=prod
+Right click on Starter class  Run AsRun Config Choose Arguments
+Enter below format in VM Arguments
+     -Dspring.profiles.active=prod
+apply and Run
+
+2.Key Search highest priority is given in same profile properties file, if key is not found in current  profile properties file then goes to default properties file.
+If no where key is found then 
+a.@Value generate Exception (IllegalArgumnetException)
+b.@ConfigurationProperties :- Default value of DataType is chosen by container.
+application.properties	application-prod.properties	application-uat.properties
+A=10	A=15	A=30
+B=7	B=20	
+C=6		
+
+Case#1 spring.profiles.active=prod then
+Key	Value
+A	15
+B	20
+C	6
+D	0 ( for int type default value)
+
+Case#2 spring.profiles.active=uat
+
+Key	Value
+A	30
+B	7
+C	6
+D	0 (for int type default value)
+
+Including Child Profiles :-
+In spring Boot applications active profile can be specified using key
+     Ex:    --spring.profiles.active=[----]
+In this case one properties file is loaded into memory which may have more set of key=value pairs.
+These can be divided into multiple child properties file and loaded through active profile, also called as “Profiles Include”.
+This can be done using key spring.profiles.include=-,-,-,-
+Example :-
+
+
+Spring Container will load :-
+Parent (main) Profiles first (all its key=value pairs)
+Then child profiles in given order will be loaded.
+For above example, priority for loading (loading order is)
+     a. application-prod.properties
+     b. application-pemail.properties
+     c. application-db.properties
+     
+
+
+
+
+
+
