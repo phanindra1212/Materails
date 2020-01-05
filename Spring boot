@@ -230,9 +230,8 @@ All you need to do is add @SpringBootApplication and use the SpringApplication.r
 
 When you launch this class as a Java application, you will see that an embedded Tomcat server launches and you are ready to add features to this application.
 
-
+In spring boot application we can execute any task just before spring boot finishes its startup. 
 Spring Boot provides two interfaces, CommandLineRunner and ApplicationRunner, to run specific pieces of code when an application is fully started. These interfaces get called just before run() once SpringApplication completes.
-
 
 CommandLineRunner
 ================
@@ -265,28 +264,73 @@ public class AppStartupRunner implements ApplicationRunner {
 
 
 When to Use It
+FYI, Spring Batch relies on these runners in order to trigger the execution of the jobs.
 When you want to execute some piece of code exactly before the application startup completes, you can use it then. 
 In one of our projects, we used these to source data from other microservices via service discovery, which was registered in Consul.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Q) What is the difference between CommandLineArgument and ApplicationRunner?
 ANS :-Working process of CommandLineRunner and ApplicationRunner are same, but CommandLineRunner (CLR) holds data in String[] format where as Application (AR) holds data as ApllicationArguments as Option/Non-Option format.
 
+https://howtodoinjava.com/spring-boot/command-line-runner-interface-example/
+
+
+application.Properties
+=======================
+1. It holds in key=value format
+2. Keys are two types 
+        A.Spring Boot defined (Predefined) 
+		b)custom Keys 
+		
+		NOTE :-
+a. Allowed special symbol are dot(.), dash (-) and underscore (_).
+b. Key=value both are String type, Spring supports both are String type, Spring supports type conversation (ex: Stringint) automatically.
+c. To read one key-value in code use Legacy 
+syntax: @Value(“${key}”)
+
+@ConfigurationProperties("my.prod")
 
 
 
+YAML (YAMlian Language) 
+It is representation style of key=val without duplicate levels in keys if they are lengthy and having common levels.
+File extension is “.yml”.
+It will hold data in below format 
+    	  key : <space> value
 
+Key=value format List<DataType>/Set<DataType>/Array(<DataType>[]) Style :-
+In properties file we can use from zero.
+In yml file use just dash (-) with <space> value under same level.
+
+Ex:- application.proeprties
+my.code.version[0]=V1
+my.code.version[1]=V2
+my.code.version[2]=V3
+
+---application.yml :--
+my:
+   code:
+        version:
+            -V1
+            -V2
+            -V3
+
+final meaning is:                	 
+               
+
+Key=value format Map/Properties Style :-
+Consider below example
+	
+
+Its equal properties file will be 
+Ex:- application.properties
+my.data.model.a1=6.6
+my.data.model.a2=8.6
+my.data.model.a3=9.6
+Its equal : application.yml file
+my: 
+   data:
+        model:
+              a1: 6.6
+              a2: 8.6
+              a3: 9.6
 
