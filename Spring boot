@@ -1,0 +1,198 @@
+Spring Boot
+================
+Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
+
+Features
+============
+Create stand-alone Spring applications
+Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)
+Provide opinionated 'starter' dependencies to simplify your build configuration
+Automatically configure Spring and 3rd party libraries whenever possible
+Provide production-ready features such as metrics, health checks and externalized configuration
+Absolutely no code generation and no requirement for XML configuration
+
+A Comparison Between Spring and Spring Boot
+===========================================================
+
+4. Maven Dependencies
+First of all, let's look at the minimum dependencies required to create a web application using Spring:
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-web</artifactId>
+    <version>5.1.0.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>5.1.0.RELEASE</version>
+</dependency>
+Unlike Spring, Spring Boot requires only one dependency to get a web application up and running:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>2.0.5.RELEASE</version>
+</dependency>
+All other dependencies are added automatically to the final archive during build time.
+
+Another good example is testing libraries. We usually use the set of Spring Test, JUnit, Hamcrest, and Mockito libraries. In a Spring project, we should add all these libraries as dependencies.
+
+But in Spring Boot, we only need the starter dependency for testing to automatically include these libraries.
+
+Spring Boot provides a number of starter dependencies for different Spring modules. Some of the most commonly used ones are:
+
+spring-boot-starter-data-jpa
+spring-boot-starter-security
+spring-boot-starter-test
+spring-boot-starter-web
+spring-boot-starter-thymeleaf
+For the full list of starters, also check out the Spring documentation.
+
+5. MVC Configuration
+Let's explore the configuration required to create a JSP web application using both Spring and Spring Boot.
+
+Spring requires defining the dispatcher servlet, mappings, and other supporting configurations. We can do this using either the web.xml file or an Initializer class:
+public class MyWebAppInitializer implements WebApplicationInitializer {
+  
+    @Override
+    public void onStartup(ServletContext container) {
+        AnnotationConfigWebApplicationContext context
+          = new AnnotationConfigWebApplicationContext();
+        context.setConfigLocation("com.baeldung");
+  
+        container.addListener(new ContextLoaderListener(context));
+  
+        ServletRegistration.Dynamic dispatcher = container
+          .addServlet("dispatcher", new DispatcherServlet(context));
+          
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/");
+    }
+}
+We also need to add the @EnableWebMvc annotation to a @Configuration class and define a view-resolver to resolve the views returned from the controllers:
+
+@EnableWebMvc
+@Configuration
+public class ClientWebConfig implements WebMvcConfigurer { 
+   @Bean
+   public ViewResolver viewResolver() {
+      InternalResourceViewResolver bean
+        = new InternalResourceViewResolver();
+      bean.setViewClass(JstlView.class);
+      bean.setPrefix("/WEB-INF/view/");
+      bean.setSuffix(".jsp");
+      return bean;
+   }
+}
+By comparison to all this, Spring Boot only needs a couple of properties to make things work, once we've added the web starter:
+
+
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+All the Spring configuration above is automatically included by adding the Boot web starter, through a process called auto-configuration.
+
+What this means is that Spring Boot will look at the dependencies, properties, and beans that exist in the application and enable configuration based on these.
+
+Of course, if we want to add our own custom configuration, then the Spring Boot auto-configuration will back away.
+
+
+6. Spring Security Configuration
+For the sake of simplicity, we'll see how the default HTTP Basic authentication is enabled using these frameworks.
+
+Let's start by looking at the dependencies and configuration we need to enable Security using Spring.
+
+Spring requires both the standard the spring-security-web and spring-security-config dependencies to set up Security in an application.
+
+Next, we need to add a class that extends the WebSecurityConfigurerAdapter and makes use of the @EnableWebSecurity annotation:
+
+@Configuration
+@EnableWebSecurity
+public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+  
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+          .withUser("user1")
+            .password(passwordEncoder()
+            .encode("user1Pass"))
+          .authorities("ROLE_USER");
+    }
+  
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+          .anyRequest().authenticated()
+          .and()
+          .httpBasic();
+    }
+     
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+Here we're using the inMemoryAuthentication to set up the authentication.
+
+Similarly, Spring Boot also requires these dependencies to make it work. But we need to define only the dependency of spring-boot-starter-security as this will automatically add all the relevant dependencies to the classpath.
+
+The security configuration in Spring Boot is the same as the one above.
+
+If you need to know how the JPA configuration can be achieved in both Spring and Spring Boot, then check out our article A Guide to JPA with Spring.
+
+7. Application Bootstrap
+The basic difference in bootstrapping of an application in Spring and Spring Boot lies with the servlet. Spring uses either the web.xml or SpringServletContainerInitializer as its bootstrap entry point.
+
+On the other hand, Spring Boot uses only Servlet 3 features to bootstrap an application. Let' talk about this in detail.
+
+7.1. How Spring Bootstraps?
+Spring supports both the legacy web.xml way of bootstrapping as well as the latest Servlet 3+ method.
+
+Let's see the web.xml approach in steps:
+
+Servlet container (the server) reads web.xml
+The DispatcherServlet defined in the web.xml is instantiated by the container
+DispatcherServlet creates WebApplicationContext by reading WEB-INF/{servletName}-servlet.xml
+Finally, the DispatcherServlet registers the beans defined in the application context
+Here's how Spring bootstraps using Servlet 3+ approach:
+
+The container searches for classes implementing ServletContainerInitializer  and executes
+The SpringServletContainerInitializer finds all classes implementing WebApplicationInitializer
+The WebApplicationInitializer creates the context with XML or @Configuration classes
+The WebApplicationInitializer creates the DispatcherServlet with the previously created context.
+7.2. How Spring Boot Bootstraps?
+The entry point of a Spring Boot application is the class which is annotated with @SpringBootApplication:
+
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+By default, Spring Boot uses an embedded container to run the application. In this case, Spring Boot uses the public static void main entry-point to launch an embedded web server.
+
+Also, it takes care of the binding of the Servlet, Filter, and ServletContextInitializer beans from the application context to the embedded servlet container.
+
+Another feature of Spring Boot is that it automatically scans all the classes in the same package or sub packages of Main-class for components.
+
+Spring Boot provides the option of deploying it as a web archive in an external container as well. In this case, we have to extend the SpringBootServletInitializer:
+
+@SpringBootApplication
+public class Application extends SpringBootServletInitializer {
+    // ...
+}
+Here the external servlet container looks for the Main-class defined in the META-INF file of the web archive and the SpringBootServletInitializer will take care of binding the Servlet, Filter, and ServletContextInitializer.
+
+8. Packaging and Deployment
+Finally, let's see how an application can be packaged and deployed. Both of these frameworks support the common package managing technologies like Maven and Gradle. But when it comes to deployment, these frameworks differ a lot.
+
+For instance, the Spring Boot Maven Plugin provides Spring Boot support in Maven. It also allows packaging executable jar or war archives and running an application “in-place”.
+
+Some of the advantages of Spring Boot over Spring in the context of deployment include:
+
+Provides embedded container support
+Provision to run the jars independently using the command java -jar
+Option to exclude dependencies to avoid potential jar conflicts when deploying in an external container
+Option to specify active profiles when deploying
+Random port generation for integration tests
+
