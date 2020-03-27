@@ -1,3 +1,6 @@
+### Introduction
+``````````````````
+
 Angular : Angular is a Client side Java Script FrameWork which allows you to create a reactive Single Page Application
           it is an open source,cross platform,cross browser compatible
           it is developed by google,it is completely developed using type script 
@@ -13,6 +16,27 @@ Versions of Angular
 • Angular 7 : May 4th 2018
 • Angular 8 : May 4th 2018
 • Angular 9 : Feb  2020 
+
+
+AngularJS 
+================
+it is developed using javascript 
+MVC 
+Controllers 
+Scopes
+No Support for CLI 
+SPA
+
+
+####Angular 2
+Released in 2016
+Complete rewrite of Angular 1
+Written entirely in typescript
+Component-based instead of Controller
+ES6 and typescript supported
+More testable as component-based
+Support for Mobile/Low-end devices
+Up to typescript 1.8 is supported
 
 
 
