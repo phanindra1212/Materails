@@ -2,4 +2,21 @@ Angular : Angular is a Client side Java Script FrameWork which allows you to cre
           it is an open source,cross platform,cross browser compatible
           it is developed by google,it is completely developed using type script 
 ##Single Page Appn: 
+A single-page application is an app that works inside a browser and does not require page reloading during use.
+Example  Gmail, Google Maps, Facebook or GitHub
+
+Versions of Angular
+• Angular 2 : Sep 14th 2016
+• Angular 4 : Mar 23rd 2017 [Angular 3.0 was skipped due to misalignment of router package 3.3.0]
+• Angular 5 : Nov 1st 2017
+• Angular 6 : May 4th 2018
+• Angular 7 : May 4th 2018
+• Angular 8 : May 4th 2018
+• Angular 9 : Feb  2020 
+
+
+
+
+
+
 
