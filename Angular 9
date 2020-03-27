@@ -143,12 +143,224 @@ initial release of Angular Elements which gives us ability to use our angular co
 
 
 
+Building Blocks of Angular Apps
+================================
+
+Component 
+Directive
+Service
+Module
+Filter
+D.I
+Bindings
+Pipes
+
+What is a Component :
+The Angular components encapsulates template, data and a behavior of a view. 
+In simple words Angular components are nothing but a typescript class with some metadata attached to it 
+
+
+Lets understand this with an example:
+
+Consider your webpage with a navigation bar at the top and a sidebar menu. For this webpage design you can create 2 components for navigation bar and side bar respectively. Let us see navbar component :
+
+import { Component } from '@angular/core'; 
+ 
+@Component({ 
+selector: 'nav-bar-component', 
+template: `<div class="navBarContainer">
+	<ul (click)="hideNavList()">
+		<li>tabsData[0]</li>
+		<li>tabsData[1]</li>
+		<li>tabsData[2]</li>
+	</ul>
+</div>`
+}) 
+ 
+export class NavBarComponent{ 
+	tabsData = ["Home","Contact Us","About Us"];
+	constructor() {}
+ 
+	hideNavList() {
+		//code to hide the list 
+	}
+}
+
+Here as you can see in navbar component you have defined your template using unordered list. Also you have provided tabsData as a data to bind to the template and hideNavList() as behavior to the view. Likewise you can create the other components in Angular.
+
+Binding: Connection between HTML element and Component property
+
+i) property binding
+ii)attribute binding
+iii)style 
+iv)class 
+v)Event binding
+vi)2-way binding 
 
 
 
 
+)Property Binding  : we bind the property of a dom element to a field  in component  
+======================
+it works with  only one way binding 
+
+Ex :
+====
+
+<img src ="{{imageValue}}" > My Image </img>
+ (or)
+<img [src] ="imageValue" > My Image </img>
+
+Interpolatoin : {{component field }}
+{{Title}} ----> String Interpolatoin
+    (or)
+<h2  [textContent]="title">  -------> Property binding 
 
 
+
+
+2)attribute bindings
+==================
+Binding an Attribute of Html element into component field 
+
+colspan is an html td attribute doesn't have a dom property as colspan so we are using [attr.colspan] 
+<td colspan="2" > </td>    --------> <td [attr.colspan]="2" >
+
+Class Binding 
+
+<button class="btn btn-primary"  [class.active]={isActive}>
+
+based on some condition we want to add active class dynamically  
+
+
+Style binding 
+
+
+<button [style.background] = "isActive ? 'blue' : 'white'}"> 
+
+
+Event Binding  which we used to handle event raised by dom like Button click,mouse over,mouseout,keyup etc ...
+
+
+* () used for  ----> For Event Binding 
+
+Bind this as a method on a component
+
+<button (click)="onSave();"> Save  </button>\
+
+Event Filtering 
+===============
+
+in template 
+<input (keyup) =onKeyup() />
+
+in componet
+
+onKeyup($event)
+{
+
+ if($event.code =="13")
+{
+console.log("enter key was pressed")
+}
+}
+
+(or) 
+<input (keyup.enter) =onKeyup() />
+in componet
+
+onKeyup()
+{
+	console.log("enter key was pressed")
+
+}
+
+***************************************************************************************************************************************************************************
+
+Template  Variable
+*********
+email
+i)  event.target.value gives the value entered in input field
+       (or )
+ii) template :   ~
+								< input #email (keyup.enter) =onKeyup(value) />
+			     ~
+
+	onKeyup(email)
+	{
+		console.log(email);
+	}
+
+	
+	
+***************************************************************************************************************************************************************************
+	
+	2 way binding :
+	
+	===========================
+					1 way binding example 
+					
+					<input [value] ="email" (keyup.enter)="onKeyup();"
+
+					Component.ts : 
+					email :String="phanindra1212@gmail.com";
+					onkeyup()
+					{
+					   console.log(this.email);
+					}
+
+	2 way binding : Approach 1:
+	
+	template : ~
+				<input [value] ="email" (keyup.enter)="email =$event.target.value=onKeyup()"
+		2 way binding : Approach 2:
+			     <input [(ngModel)] ="email" (keyup.enter)="onKeyup()" />
+	
+	
+			~
+			
+	Component :
+	==========
+
+  export class eventComponent
+  email="me@example.com"
+  
+  onKeyup()
+  {
+    console.log(this.email);
+  }
+  
+  ngModel we need to excliptly import 
+  
+  One way data binding:
+	From component to view template - interpolation, property binding, attribute binding etc.
+interpolation:
+	converts to property binding
+	To concatinate strings - {{}}
+property binding
+	any(string or non-string) values can be bind
+	[x]='x'
+attribute binding
+	[attr.colspan]="columnspan"
+class binding
+	[class]="classesToApply"
+	[class.boldClass]="true"
+	[ngClass] = "addClasses()"
+style binding
+	[style.font-weight]="Bold"
+	[style.font-size.px]='20'
+	[ngstyle]="addstyles()"
+event binding
+	(click)="onclick()"
+two way binding(combination of property binding and event binding)[()]
+	[(ngModel)]=''
+	import { FormsModule } from '@angular/forms';
+
+
+
+
+  
+  
 
 
 
