@@ -387,7 +387,15 @@ ngOnDestroy – This method will be executed just before Angular destroys the co
 Interfaces
 
 
+# Communication Between Components
 
+In Angular 2 a component can share data and information with another component by passing data or events. A component can be used inside another component, thus creating a component hierarchy. The component being used inside another component is known as the child component and the enclosing component is known as the parent component. Components can communicate to each other in various ways, including:
+
+Using @Input()
+Using @Output()
+Using Services
+Parent component calling ViewChild
+Parent interacting with child using a local variable
   
   
 
