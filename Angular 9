@@ -389,6 +389,8 @@ Interfaces
 
 # Communication Between Components
 
+https://medium.com/@nodexperts_88267/data-transfer-one-component-to-another-angular-7-c076272c78e1
+
 In Angular 2 a component can share data and information with another component by passing data or events. A component can be used inside another component, thus creating a component hierarchy. The component being used inside another component is known as the child component and the enclosing component is known as the parent component. Components can communicate to each other in various ways, including:
 
 Using @Input()
@@ -398,8 +400,166 @@ Parent component calling ViewChild
 Parent interacting with child using a local variable
   
   
+  Let us consider the components created in the listing below. We have created a component called AppChildComponent, which will be used inside another component.
+
+import { Component } from '@angular/core';
+@Component({
+    selector: 'appchild',
+    template: `<h2>Hi {greetMessage}</h2>`
+})
+export class AppChildComponent {
+    greetMessage: string = "I am Child";
+}
+We have also created another component called AppComponent. Inside AppComponent, we are using AppChildComponent:
+
+import {Component } from '@angular/core';
+import {AppChildComponent} from './appchild.component';
+@Component({
+	selector: 'my-app',
+	template: `<h1>Hello {message}</h1> <br/>
+	<appchild></appchild>`,
+})
+export class AppComponent {
+	message : string = "I am Parent";
+}
+In the above listings, AppComonent is using AppChildComponent, hence AppComponent is the parent component and AppChildComponent is the child component.
+
+Passing Data From Parent Component to Child Component
+Let us start with passing data from the parent component to the child component. This can be done using the input property. @Input decorator or input properties are used to pass data from parent to child component. To do this, we’ll need to modify child AppChildComponent as shown in the listing below:
+
+import { Component,Input,OnInit } from '@angular/core';
+@Component({
+    selector: 'appchild',
+    template: `<h2>Hi {{greetMessage}}</h2>`
+})
+export class AppChildComponent  implements OnInit{
+    @Input() greetMessage: string ;
+        constructor(){
+        }   
+        ngOnInit(){
+        }
+    }
+As you notice, we have modified the greetMessage property with the @Input() decorator. Also, we have implemented onInit, which will be used in demos later.  So essentially, in the child component, we have decorated the greetMessage property with the @Input() decorator so that value of greetMessage property can be set from the parent component.
+
+Next, let us modify the parent component AppComponent to pass data to the child component.
+
+import {Component } from '@angular/core';
+import {AppChildComponent} from './appchild.component';
+@Component({
+    selector: 'my-app',
+    template: `<h1>Hello {{message}}</h1> <br/> 
+  <appchild [greetMessage]="childmessage"></appchild>
+  `,
+})
+export class AppComponent  { 
+  
+        message : string = "I am Parent";
+        childmessage : string = "I am passed from Parent to child component"
+    }
+From the parent component, we are setting the value of the child component’s property greetMessage. To pass a value to the child component, we need to pass the child component property inside a square bracket and set its value to any property of parent component. We are passing the value of childmessage property from the parent component to the greetMessage property of the child component.
 
 
+
+
+
+MEDIUM EXPLANATION 
+==========================================
+
+
+
+
+
+
+
+
+
+Data sharing is an essential concept to understand before diving into your first Angular project. In Angular mainly we have 4 methods by which a component can share data and information with another component by passing data or events :
+Components can communicate with each other in various ways, including:
+Parent to Child: via Input
+Child to Parent: via Output() and EventEmitter
+Child to Parent: via ViewChild
+Unrelated Components: via a Service
+One thing you need to know, these above are the decorators which we are using within Angular application. The first thing which comes to your mind is, what is Decorator? So I am supposing that you have a basic idea about decorators. If you have not then I will suggest first take a basic idea about decorators.
+Here I will explain all 4 types of methods one by one so let’s start with the first type of data transfer type i.e: via Input. So I will start with a very basic & common example, suppose we have a filter component & order list component on which we have to use this filter component.
+Setting up our Application:
+Let’s use Angular CLI to set up our application. If you don’t have Angular CLI installed on your machine run the below command to install it globally.
+npm install -g angular-cli
+After Angular CLI installation, to create a new Angular project Run below command. This command will create all the necessary files, download all the required external dependencies and do all of the setups work for us.
+ng new your-app-name
+This command will ask questions that “would you like to add angular routing?” so if you want to add routing in your application just press “y” & then enter, again it will ask about that which stylesheet do you want to use? so on choose CSS & then enter. So now your app will create with routing module & with CSS style format as default.
+To create components in the Angular application is very easy with the help of Angular CLI. Below command is used to create a component
+ng generate component component-name
+Run the below commands to create components,
+To create a filter component run: ng generate component filter
+To create order list component run: ng generate component order-list
+As you create components, it will automatically import into your app.module.ts. If not then you have to import both of these components manually in app.module.ts & also in import arrays. Now you are good to develop your first angular application.
+Parent to Child: Sharing Data via Input()
+After Set up the basic application just write code into filter component to filter records of order list by name. For ex:
+Image for post
+Next, you have to write code to show the list in order component with some pre-filled data like below screenshot:
+In order list component I have used filter component selector. As I am using filter component under order list component so here filter component will be known as child component & order-list component will be known as parent component.
+Image for post
+Filled order list with some random data so we can apply filter. Below is the screenshot of the ts file of the order list component.
+Image for post
+So as you can see that in ts file we declare one property through which we populate data into the table. So now we assume that we want to transfer some data from parent component i.e: order component to child component i.e: filter component.
+Suppose we want to send button text from parent to child component. For this we use @Input decorator.so you have to change in the parent component. Declare property buttonText & assign a string to it like:
+Image for post
+Also, you have to do change in HTML file because we declare button text as property with some default value but we also have to send this button text from parent component to child component so to do this we use property binding like this:
+Image for post
+[] (square bracket) known as property binding, so by using this bracket we just bind a property of filter component text to order component property buttonText. Also, declare text as input in the child component. For this you have to use @Input decorator like this:
+So now you can use text property in the filter component where ever you want to use with a value of parent component. Whenever we change the value of button text from the parent component, the value of the text of the filter component gets automatically changed.
+Child to Parent: Sharing Data via Output() and EventEmitter
+Here we will use outputs and EventEmitter, before digging into this method I assume that you have a basic idea of output() & EventEmitter.
+The second way to share data is to emit data from the child. This approach is ideal when you want to share data changes that occur on things like button clicks, form entities, and other user events.
+In the parent, we create a function to receive the filter term and can be used in the parent component to filter our data.
+In the child, we declare a searchValue property with the Output decorator and set it equal to a new event emitter. Then we create a function named filter that calls emit on this event with the searchValue we want to send. Lastly, we create a button to trigger this function.
+The parent can now subscribe to this searchValue that’s outputted by the child component, then run the OnApplyfilter function whenever this event occurs.
+Now suppose we want value from the filter component to parent component means whatever we write into the text field that value should be in parent component so that we can filter our data. For this we have to write click event in child component:
+Image for post
+After this, we have to write a method on which this value will emit.
+Image for post
+Because we want searchValue value in parent component so we have to bind this value by using event binding like this:
+Image for post
+& also we have to write OnApplyFilter() function in our parent ts file:
+Image for post
+Now you can do anything with this value whatever you want.
+Child to Parent: Sharing Data via ViewChild
+The next method to transfer data from child to parent component is ViewChild.
+ViewChild allows one component to be injected into another, giving the parent access to its attributes and functions. However, the child won’t be available until after the view has been initialized. This means we need to implement the AfterViewInit lifecycle hook to receive the data from the child.
+Image for post
+From the above screenshot, you will be able to understand that by using ViewChild we have injected child component into our parent component so now we can access every property & method of child component easily. Our filter component writes the property of filterMessage with some value. Now, this value will be available into our parent component.
+Image for post
+Unrelated Components: Sharing Data with a Service
+Services are commonly used for storing data and making HTTP calls for retrieving, posting, updating and deleting the data we need in our application.
+Now I am going to explain how we will share the data by service from one component to another while these are not in a parent-child relationship.
+When passing data between components that lack a direct connection, such as siblings, grandchildren, etc, you should use a shared service.
+So suppose here another component is a product-list component by using the same command:
+ng generate component product-list
+First, we create a service that holds the data. Since a service is a singleton, all of the components that inject this service can share the data from this service. For this, we create a service class by using this command
+ng generate service data
+Suppose we have some methods or data which both components i.e order-list & product-list component needs than we can easily share that data by using service method.
+Image for post
+So As you can see we have declared one property in data.service.ts. SharedData property now can be accessed from any component from where you want. For this you have import data service into the required component & also inject this service into your component like this:
+Image for post
+So As you understood from the above screenshot that how we can get sharedData from data service & also set sharedData value which will be reflected in another component.
+Image for post
+So Using service we can transfer data from the unrelated component.
+Summary
+In this post, we have learned about how to share data between parent and child components using @Input(), @Output and EventEmitter & also share data between unrelated components using service. Data sharing is a very important concept, and everybody needs to share data between the application’s components.
+So I hope this article should have clear all your doubts regarding data transfer between components in angular 7. It’s up to you which method you want to use for data transfer.
+
+
+2 types of forms 
+=================
+Template Driven Forms
+Reactive Forms
+
+FormGroup: FormGroup API holds the values, properties, and validation state of a group in Reactive forms.
+FormBuilder: It offers convenient methods to control the instances.
+AbstractControl: This class controls the behavior and properties of, FormGroup, FormControl, and FormArray.
+FormControl: It is responsible for managing the value and validation status of the specific form control.
+FormArray: This API manages the values, properties, and validation state of an array.
+ngSubmit: This event is called when the form is submitted.
 
 
 
